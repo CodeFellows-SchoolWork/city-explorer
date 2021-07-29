@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import './CityForm.css';
 
 class CityForm extends React.Component {
 
@@ -26,10 +27,8 @@ class CityForm extends React.Component {
     })
   };
 
-
   getLocationInfo = async (e) => {
     e.preventDefault();
-
 
     try {
       let cityDataInfo = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
@@ -46,16 +45,13 @@ class CityForm extends React.Component {
         displayError: false,
       });
 
-
-
     } catch (error) {
       this.setState({
         displayError: true,
         errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
-      })
-    }
+      });
+    };
   };
-
 
   render() {
     return (
@@ -68,14 +64,13 @@ class CityForm extends React.Component {
           <Button type="submit">Explore!</Button>
         </Form>
 
-
-        {this.state.renderDisplayedCity ? <h4> city: {this.state.city}, lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
+        {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br/> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
         {this.state.renderMap ? <img src={this.state.displayMap} /> : ''}
         {this.state.renderError ? <h3>{this.state.errorMessage}</h3> : ''}
 
       </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default CityForm;

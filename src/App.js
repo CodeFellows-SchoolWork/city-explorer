@@ -16,15 +16,7 @@ class App extends React.Component {
     return (
 
       <>
-
-      {/* <Header /> */}
-
       <CityForm/>
-
-      {/* <Main />
-
-      <Footer /> */}
-
       </>
 
     )
