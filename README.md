@@ -12,7 +12,7 @@
 >**Author: Brutalism**,
 >>**Links and Resources:**
 >>>**submission PR:** 
->>>>**URL:** 
+>>>>**URL:** https://city-explorer-brutal.netlify.app
 >>>>>**GitHub Repo:** https://github.com/CodeFellows-SchoolWork/city-explorer
 >>>>>>**Links you used as reference:**
 >>>>>>>**Reflections and Comments:**
@@ -29,5 +29,5 @@ Create GitHub repo and follow the directions on how to link a repo from the comm
 Add env to your gitignore,  
 NPM I axios, bootstrap
 Link your new repo to Netlify.
-
+![image](./Typeacity.jpg)
 
