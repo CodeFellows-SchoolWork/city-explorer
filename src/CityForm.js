@@ -66,7 +66,7 @@ class CityForm extends React.Component {
 
         {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br/> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
         {this.state.renderMap ? <img src={this.state.displayMap} alt="map" /> : ''}
-        {this.state.renderError ? <h3>{this.state.errorMessage}</h3> : ''}
+        {this.state.displayError ? <h3>{this.state.errorMessage}</h3> : ''}
 
       </>
     );
