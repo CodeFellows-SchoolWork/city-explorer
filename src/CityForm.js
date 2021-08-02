@@ -9,6 +9,7 @@ class CityForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      weatherDataInfoArr: [],
       renderDisplayedCity: false,
       city: '',
       lat: 0,
@@ -27,14 +28,19 @@ class CityForm extends React.Component {
     })
   };
 
-  getLocationInfo = async (e) => {
+  retrieveEventSubmit = (e) => {
     e.preventDefault();
+    this.getLocationInfo();
+    this.getWeatherData();
+  }
+
+  getLocationInfo = async () => {
 
     try {
       let cityDataInfo = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
 
       let imageUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${cityDataInfo.data[0].lat},${cityDataInfo.data[0].lon}&zoom=12`;
-      console.log(cityDataInfo);
+
       this.setState({
         renderDisplayedCity: true,
         city: cityDataInfo.data[0].display_name,
@@ -53,19 +59,43 @@ class CityForm extends React.Component {
     };
   };
 
+  getWeatherData = async () => {
+    try {
+      let weatherDataInfo = await axios.get(`http://localhost:3001/weather?searchQuery=${this.state.city}&lat=${this.state.lat}&lon=${this.state.lon}`);
+      
+      this.setState({
+        weatherDataInfoArr: weatherDataInfo.data,
+      });
+      
+    } catch (error) {
+      this.setState({
+        displayError: true,
+        errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
+      });
+    }
+
+  };
+
   render() {
     return (
 
       <>
 
         <h1>City Explorer</h1>
-        <Form onSubmit={this.getLocationInfo}>
+        <Form onSubmit={this.retrieveEventSubmit}>
           <input onChange={this.handleEvent} />
           <Button type="submit">Explore!</Button>
         </Form>
 
-        {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br/> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
+        {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br /> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
         {this.state.renderMap ? <img src={this.state.displayMap} alt="map" /> : ''}
+        {this.state.weatherDataInfoArr.length > 0 ? this.state.weatherDataInfoArr.map((value, idx) => (
+          <div key={idx}>
+            <h2>{value.date}</h2>
+            <p>{value.description}</p>
+          </div>
+        ))
+          : ''}
         {this.state.displayError ? <h3>{this.state.errorMessage}</h3> : ''}
 
       </>
