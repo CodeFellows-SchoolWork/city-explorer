@@ -1,4 +1,5 @@
 import React from 'react';
+import './Weather.css';
 
 
 class Weather extends React.Component {
@@ -6,7 +7,7 @@ class Weather extends React.Component {
   render() {
     console.log(this.props.weatherDataInfoArr);
     return (
-      <>
+      <div className='weatherDiv'>
         {this.props.weatherDataInfoArr.length > 0 ? this.props.weatherDataInfoArr.map((value, idx) => (
           <div key={idx}>
             <h2>DATE: {value.date}</h2>
@@ -16,7 +17,7 @@ class Weather extends React.Component {
           </div>
         ))
           : ''}
-      </>
+      </div>
     )
   }
 };

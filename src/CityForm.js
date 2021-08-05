@@ -6,6 +6,7 @@ import './CityForm.css';
 import Weather from './Weather'
 import Movies from './Movies'
 
+
 class CityForm extends React.Component {
 
   constructor(props) {
@@ -116,8 +117,8 @@ class CityForm extends React.Component {
         {this.state.displayError ? <h3>{this.state.errorMessage}</h3> : ''}
 
         <Weather weatherDataInfoArr={this.state.weatherDataInfoArr} />
-        <Movies movieDataArr={this.state.movieDataArr} />
 
+        <Movies movieDataArr={this.state.movieDataArr} />
       </>
     );
   };
