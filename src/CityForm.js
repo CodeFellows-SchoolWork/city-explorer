@@ -3,12 +3,15 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './CityForm.css';
+import Weather from './Weather'
+import Movies from './Movies'
 
 class CityForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      movieDataArr: [],
       weatherDataInfoArr: [],
       renderDisplayedCity: false,
       city: '',
@@ -28,14 +31,8 @@ class CityForm extends React.Component {
     })
   };
 
-  retrieveEventSubmit = (e) => {
+  getLocationInfo = async (e) => {
     e.preventDefault();
-    this.getLocationInfo();
-    this.getWeatherData();
-  }
-
-  getLocationInfo = async () => {
-
     try {
       let cityDataInfo = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
 
@@ -57,24 +54,50 @@ class CityForm extends React.Component {
         errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
       });
     };
+    this.getWeatherData();
   };
 
   getWeatherData = async () => {
     try {
-      let weatherDataInfo = await axios.get(`http://localhost:3001/weather?searchQuery=${this.state.city}&lat=${this.state.lat}&lon=${this.state.lon}`);
-      
+      let weatherDataInfo = await axios.get(`http://localhost:3001/weather`, {
+        params: {
+          searchQuery: this.state.city,
+          lat: this.state.lat,
+          lon: this.state.lon,
+        }
+      });
+
       this.setState({
         weatherDataInfoArr: weatherDataInfo.data,
       });
-      
+
     } catch (error) {
       this.setState({
         displayError: true,
         errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
       });
-    }
-
+    };
   };
+
+  getMovieData = async () => {
+
+    try {
+      let movieDataInfo = await axios.get(``);
+
+      this.setState({
+        movieDataArr: movieDataInfo.data,
+
+      });
+
+    } catch (error) {
+      this.setState({
+        displayError: true,
+        errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
+      });
+    };
+  };
+
+
 
   render() {
     return (
@@ -82,21 +105,18 @@ class CityForm extends React.Component {
       <>
 
         <h1>City Explorer</h1>
-        <Form onSubmit={this.retrieveEventSubmit}>
+        <Form onSubmit={this.getLocationInfo}>
           <input onChange={this.handleEvent} />
           <Button type="submit">Explore!</Button>
         </Form>
 
         {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br /> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
         {this.state.renderMap ? <img src={this.state.displayMap} alt="map" /> : ''}
-        {this.state.weatherDataInfoArr.length > 0 ? this.state.weatherDataInfoArr.map((value, idx) => (
-          <div key={idx}>
-            <h2>{value.date}</h2>
-            <p>{value.description}</p>
-          </div>
-        ))
-          : ''}
+
         {this.state.displayError ? <h3>{this.state.errorMessage}</h3> : ''}
+
+        <Weather weatherDataInfoArr={this.state.weatherDataInfoArr} />
+        <Movies movieDataArr={this.state.movieDataArr} />
 
       </>
     );
