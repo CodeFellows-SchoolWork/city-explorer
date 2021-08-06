@@ -3,8 +3,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './CityForm.css';
-import Weather from './Weather'
-import Movies from './Movies'
+import Weather from './Weather';
+import Movies from './Movies';
+
 
 class CityForm extends React.Component {
 
@@ -55,6 +56,7 @@ class CityForm extends React.Component {
       });
     };
     this.getWeatherData();
+    this.getMovieData();
   };
 
   getWeatherData = async () => {
@@ -82,11 +84,10 @@ class CityForm extends React.Component {
   getMovieData = async () => {
 
     try {
-      let movieDataInfo = await axios.get(``);
+      let movieDataInfo = await axios.get(`http://localhost:3001/movie`);
 
       this.setState({
         movieDataArr: movieDataInfo.data,
-
       });
 
     } catch (error) {
@@ -96,8 +97,6 @@ class CityForm extends React.Component {
       });
     };
   };
-
-
 
   render() {
     return (
@@ -111,11 +110,13 @@ class CityForm extends React.Component {
         </Form>
 
         {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br /> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
+
         {this.state.renderMap ? <img src={this.state.displayMap} alt="map" /> : ''}
 
         {this.state.displayError ? <h3>{this.state.errorMessage}</h3> : ''}
 
         <Weather weatherDataInfoArr={this.state.weatherDataInfoArr} />
+
         <Movies movieDataArr={this.state.movieDataArr} />
 
       </>

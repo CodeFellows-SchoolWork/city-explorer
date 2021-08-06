@@ -1,20 +1,22 @@
 import React from 'react';
+import './Weather.css';
 
 
 class Weather extends React.Component {
-
+  // MovieList(title, overview, release_date, poster_path)
   render() {
-    console.log(this.props.weatherDataInfoArr);
     return (
-      <>
+      <div className='weatherDiv'>
         {this.props.weatherDataInfoArr.length > 0 ? this.props.weatherDataInfoArr.map((value, idx) => (
           <div key={idx}>
-            <h2>{value.date}</h2>
-            <p>{value.description}</p>
+            <h2>DATE: {value.date}</h2>
+            <p>Clouds: {value.description}</p>
+            <p>Low Temp: {value.lowTemp}</p>
+            <p>High Temp: {value.highTemp}</p>
           </div>
         ))
           : ''}
-      </>
+      </div>
     )
   }
 };
