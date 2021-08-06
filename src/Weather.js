@@ -3,9 +3,8 @@ import './Weather.css';
 
 
 class Weather extends React.Component {
-
+  // MovieList(title, overview, release_date, poster_path)
   render() {
-    console.log(this.props.weatherDataInfoArr);
     return (
       <div className='weatherDiv'>
         {this.props.weatherDataInfoArr.length > 0 ? this.props.weatherDataInfoArr.map((value, idx) => (
