@@ -1,6 +1,12 @@
 
-You will need to go to https://locationiq.com/ and get your own API token.
+1)You will need to go to https://locationiq.com/ and get your own API token.
 once you do that you can add it after the =,
 This will allow for the rest of the code to be unchanged.
 
 REACT_APP_LOCATIONIQ_KEY=
+
+2)You will need to add your server https URL link.
+REACT_APP_SERVER_KEY
+
+3)If you want the option of local host server add your port ####
+ REACT_APP_LOCAL_SERVER=http://localhost:
