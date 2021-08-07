@@ -13,7 +13,9 @@ class CityForm extends React.Component {
     super(props);
     this.state = {
       movieDataArr: [],
+      displayMovie: false,
       weatherDataInfoArr: [],
+      displayWeather: false,
       renderDisplayedCity: false,
       city: '',
       lat: 0,
@@ -22,14 +24,14 @@ class CityForm extends React.Component {
       displayMap: '',
       displayError: false,
       errorMessage: '',
-    }
-  }
+    };
+  };
 
   handleEvent = (e) => {
     this.setState({
       city: e.target.value,
       renderDisplayedCity: false,
-    })
+    });
   };
 
   getLocationInfo = async (e) => {
@@ -61,7 +63,7 @@ class CityForm extends React.Component {
 
   getWeatherData = async () => {
     try {
-      let weatherDataInfo = await axios.get(`http://localhost:3001/weather`, {
+      let weatherDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/weather`, {
         params: {
           searchQuery: this.state.city,
           lat: this.state.lat,
@@ -71,6 +73,7 @@ class CityForm extends React.Component {
 
       this.setState({
         weatherDataInfoArr: weatherDataInfo.data,
+        displayWeather: true,
       });
 
     } catch (error) {
@@ -84,10 +87,15 @@ class CityForm extends React.Component {
   getMovieData = async () => {
 
     try {
-      let movieDataInfo = await axios.get(`http://localhost:3001/movie`);
+      let movieDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/movie`, {
+        params: {
+          searchQuery: this.state.city,
+        }
+      });
 
       this.setState({
         movieDataArr: movieDataInfo.data,
+        displayMovie: true,
       });
 
     } catch (error) {
@@ -100,24 +108,22 @@ class CityForm extends React.Component {
 
   render() {
     return (
-
       <>
 
-        <h1>City Explorer</h1>
         <Form onSubmit={this.getLocationInfo}>
           <input onChange={this.handleEvent} />
           <Button type="submit">Explore!</Button>
         </Form>
 
         {this.state.renderDisplayedCity ? <h4>{this.state.city}, <br /> lat:{this.state.lat}, long: {this.state.lon}</h4> : ''}
-
+        
         {this.state.renderMap ? <img src={this.state.displayMap} alt="map" /> : ''}
 
+        {this.state.displayWeather ? <Weather weatherDataInfoArr={this.state.weatherDataInfoArr} /> : ''}
+
+        {this.state.displayMovie ? <Movies movieDataArr={this.state.movieDataArr} /> : ''}
+
         {this.state.displayError ? <h3>{this.state.errorMessage}</h3> : ''}
-
-        <Weather weatherDataInfoArr={this.state.weatherDataInfoArr} />
-
-        <Movies movieDataArr={this.state.movieDataArr} />
 
       </>
     );

@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+ .HeaderDiv {
+  width: 90vw;
+  margin: auto;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  
+}
+
+.HeaderDiv h1 {
+  color: crimson;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 8px 8px #3131317c;;
+}

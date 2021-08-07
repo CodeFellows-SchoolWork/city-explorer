@@ -1,26 +1,38 @@
 
 import React from 'react';
+import Header from './Header';
 import CityForm from './CityForm';
+import Footer from './Footer';
 import './App.css';
 
 
-class App extends React.Component {
+
+
+
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   };
 
   render() {
     return (
 
-      <>
-      <CityForm/>
-      </>
+      <div>
+        
+        <Header />
+
+        
+        <CityForm />
+        
+
+        <Footer />
+
+      </div>
 
     )
   }
 }
 
-export default App;
+
