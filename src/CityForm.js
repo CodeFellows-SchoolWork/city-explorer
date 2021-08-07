@@ -87,7 +87,7 @@ class CityForm extends React.Component {
   getMovieData = async () => {
 
     try {
-      let movieDataInfo = await axios.get(`https://city-explorer-brutal.herokuapp.com/movie`, {
+      let movieDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/movie`, {
         params: {
           searchQuery: this.state.city,
         }
