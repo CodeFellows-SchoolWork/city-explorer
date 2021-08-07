@@ -1,4 +1,9 @@
 img{
   width: 45%;
   border-radius: 3%;
+  opacity: 0.93;
+}
+
+h4 {
+  color: aliceblue;
 }

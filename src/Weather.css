@@ -1,13 +1,17 @@
 .weatherDiv{
   margin: auto;
-  background-color: rgba(137, 43, 226, 0);
-  /* position: absolute; */
+  background-color: rgba(137, 43, 226, 0.255);
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+  border-radius: 3%;
   width: 45%;
-  height: 20rem;
+  height: 40rem;
   border-radius: 3%;
   overflow: scroll;
   padding-top: 3rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
+  box-shadow: 8px 8px rgb(70, 70, 70);
 }
 
 .weatherDiv::-webkit-scrollbar {

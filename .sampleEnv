@@ -1,0 +1,6 @@
+
+You will need to go to https://locationiq.com/ and get your own API token.
+once you do that you can add it after the =,
+This will allow for the rest of the code to be unchanged.
+
+REACT_APP_LOCATIONIQ_KEY=
