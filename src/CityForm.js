@@ -63,7 +63,7 @@ class CityForm extends React.Component {
 
   getWeatherData = async () => {
     try {
-      let weatherDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/weather`, {
+      let weatherDataInfo = await axios.get(`${process.env.REACT_APP_LOCAL_SERVER}/weather`, {
         params: {
           searchQuery: this.state.city,
           lat: this.state.lat,
@@ -87,7 +87,7 @@ class CityForm extends React.Component {
   getMovieData = async () => {
 
     try {
-      let movieDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/movie`, {
+      let movieDataInfo = await axios.get(`${process.env.REACT_APP_LOCAL_SERVER}/movie`, {
         params: {
           searchQuery: this.state.city,
         }
