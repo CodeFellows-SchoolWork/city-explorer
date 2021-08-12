@@ -62,14 +62,14 @@ class CityForm extends React.Component {
 
   getWeatherData = async () => {
     try {
-      let weatherDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/weather`, {
+      let weatherDataInfo = await axios.get(`${process.env.REACT_APP_LOCAL_SERVER}/weather`, {
         params: {
           searchQuery: this.state.city,
           lat: this.state.lat,
           lon: this.state.lon,
         }
       });
-
+      console.log(weatherDataInfo.data)
       this.setState({
         weatherDataInfoArr: weatherDataInfo.data,
         displayWeather: true,
@@ -78,7 +78,7 @@ class CityForm extends React.Component {
     } catch (error) {
       this.setState({
         displayError: true,
-        errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
+        errorMessage: `Error Occurred: ${error.status}, ${error.errorMessage}`,
       });
     };
   };
@@ -86,7 +86,7 @@ class CityForm extends React.Component {
   getMovieData = async () => {
 
     try {
-      let movieDataInfo = await axios.get(`${process.env.REACT_APP_SERVER_KEY}/movie`, {
+      let movieDataInfo = await axios.get(`${process.env.REACT_APP_LOCAL_SERVER}/movie`, {
         params: {
           searchQuery: this.state.city,
         }
@@ -100,7 +100,7 @@ class CityForm extends React.Component {
     } catch (error) {
       this.setState({
         displayError: true,
-        errorMessage: `Error Occurred: ${error.response.status}, ${error.response.data.error}`,
+        errorMessage: `Error Occurred: ${error.status}, ${error.errorMessage}`,
       });
     };
   };
